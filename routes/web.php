@@ -21,3 +21,8 @@ Auth::routes();
 
 Route::get('articles', 'ArticlesController@index');
 Route::get('articles/{id}', 'ArticlesController@show');
+
+
+Route::get('/welcome', function () {
+    return view('welcome');
+});
