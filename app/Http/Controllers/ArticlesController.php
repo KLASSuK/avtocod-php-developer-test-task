@@ -25,4 +25,11 @@ class ArticlesController extends Controller
         return view('articles.show', ['article' => $article]);
         //compact dont fucking use! bad practick
     }
+
+
+    public function create()
+    {
+        return view('articles.create');
+    }
+
 }
