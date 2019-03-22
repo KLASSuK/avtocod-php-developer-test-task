@@ -8,12 +8,12 @@ class Article extends Model
 {
 
     protected $fillable = [
+        'title',
+        'body',
         'username',
-        'text'
-        //      'published_at'
-//        'gravatar',
+        'gravatar',
+//        'published_at',
 //        'created_at',
-//        'updated_at'
-
+        'updated_at',
     ];
 }

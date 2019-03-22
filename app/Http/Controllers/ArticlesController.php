@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use Carbon\Carbon;
 use Illuminate\Support;
 //use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Request;
 
 class ArticlesController extends Controller
 {
     public function index()
     {
         // return $articles;
-        $articles = Article::all();
+        // have a variant with $data =Workers::all()->sortBy('name');
+        $articles = Article::orderBy('published_at', 'DESC')->get();
         //return view('articles.index', compact('articles'));
 
         return view('articles.index')->with('articles', $articles);
@@ -32,4 +34,13 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
+    public function store()
+    {
+        $input = Request::all();
+        $input['published_at'] = Carbon::now();
+
+        Article::create($input);
+
+        return redirect('articles');
+    }
 }

@@ -1,13 +1,16 @@
-<title>{{$article->username}}</title>
+@extends('layouts.app')
+@section('content')
+    <title>{{$article->title}}</title>
 
-<h1>{{$article->username}}</h1>
+    <h1>{{$article->title}}</h1>
 
 
-<article>
-    {{$article->text}}
-</article>
+    <article>
+        {{$article->body}}
+    </article>
 
-<hr/>
+    <hr/>
 
-{{$article->published_at }}
-<div class="body"> {{$article->gravatar}}</div>
+    {{$article->published_at }}
+    <div class="body"> {{$article->gravatar}}</div>
+@stop

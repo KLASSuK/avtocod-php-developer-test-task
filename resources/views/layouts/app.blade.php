@@ -79,6 +79,14 @@
     <main class="py-4">
         @yield('content')
     </main>
+    {{--<script>--}}
+    {{--(function test(){--}}
+    {{--setInterval(function () {--}}
+    {{--window.location.pathname = '/articles';--}}
+    {{--}, 1000);--}}
+    {{--})()--}}
+    {{--</script>--}}
 </div>
 </body>
 </html>
+

@@ -15,11 +15,14 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('username');
-            $table->string('text')->nullable();
-            $table->timestamp('published_at')->default(now());
-            $table->text('gravatar')->default('https://www.gravatar.com/avatar/00000000000000000000000000000000');
+            $table->string('title');
+            $table->string('body')->nullable();
+            $table->string('username')->default('admin');
+            $table->string('gravatar')->default('none');
             $table->timestamps();
+            $table->timestamp('published_at')->default(now());
+
+
         });
     }
 
@@ -30,6 +33,9 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Articles');
+        Schema::dropIfExists('articles');
     }
 }
+//Schema::table('articles', function (Blueprint $table) {
+////            This shits don`t working with sqlite
+//    $table->dropColumn('username');
