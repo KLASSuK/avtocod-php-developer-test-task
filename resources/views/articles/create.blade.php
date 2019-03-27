@@ -7,12 +7,12 @@
     <form method="POST" action="{{url('/articles')}}" accept-charset="UTF-8">@csrf
 
         <div class="form-group">
-            <label for="title">Title:</label>
+            <label for="title">Заголовок (Title):</label>
             <input class="form-control" name="title" type="text" id="title">
         </div>
 <!--Body Form Input -->
         <div class="form-group">
-            <label for="body">Body:</label>
+            <label for="body">Тело статьи (Body):</label>
             <textarea class="form-control" name="body" cols="50" rows="10" id="body"></textarea>
         </div>
 <!--Add Article Form Input -->

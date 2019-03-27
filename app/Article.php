@@ -12,7 +12,7 @@ class Article extends Model
         'body',
         'username',
         'gravatar',
-//        'published_at',
+        'published_at',
 //        'created_at',
         'updated_at',
     ];

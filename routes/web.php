@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,16 +18,21 @@ Route::get('/', function () {
     return view('mainpage');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::middleware(['auth'])->group(function () {
+//Route::get('/home', 'ArticlesController@index')->name('home');
 
 Auth::routes();
 
-Route::get('articles', 'ArticlesController@index');
-Route::get('articles/create', 'ArticlesController@create');
-Route::get('articles/{id}', 'ArticlesController@show');
-Route::post('articles', 'ArticlesController@store');
+Route::middleware(['auth'])->group(function () {
 
+    Route::get('articles', 'ArticlesController@index');
+    Route::post('articles', 'ArticlesController@store');
+
+    Route::get('articles/create', 'ArticlesController@create')->name('article.create');
+    // 'article.create' alias for using in controller and in other places
+    Route::get('articles/{id}', 'ArticlesController@show');
 //Route::get('/welcome', function () {
 //    return view('welcome');
 //});
-
+});
+// good practick use in view same     <a href="{{route('article.create')}}" class="btn btn-danger">Create</a>

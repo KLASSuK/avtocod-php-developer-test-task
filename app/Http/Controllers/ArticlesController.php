@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Article;
 use Carbon\Carbon;
 use Illuminate\Support;
+use \Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Auth;
+
 //use App\Http\Controllers\Controller;
-use Request;
+//use App\Http\Middleware\Authenticate;
 
 class ArticlesController extends Controller
 {
@@ -16,18 +19,14 @@ class ArticlesController extends Controller
         // have a variant with $data =Workers::all()->sortBy('name');
         $articles = Article::orderBy('published_at', 'DESC')->get();
         //return view('articles.index', compact('articles'));
-
         return view('articles.index')->with('articles', $articles);
     }
 
     public function show($id)
     {
         $article = Article::findOrFail($id);
-
         return view('articles.show', ['article' => $article]);
-        //compact dont fucking use! bad practick
     }
-
 
     public function create()
     {
@@ -35,12 +34,10 @@ class ArticlesController extends Controller
     }
 
     public function store()
-    {
-        $input = Request::all();
-        $input['published_at'] = Carbon::now();
-
+    { //$input = Request::all();
+        $input = request()->all();
+        $input['username'] = Auth::user()->name;
         Article::create($input);
-
         return redirect('articles');
     }
 }

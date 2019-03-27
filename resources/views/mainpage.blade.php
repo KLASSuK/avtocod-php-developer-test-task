@@ -68,7 +68,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-                <a href="{{ url('/home') }}">Home</a>
+                <a href="{{ url('/articles') }}">Homeee</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
 
@@ -85,7 +85,7 @@
         </div>
 
         <div class="links">
-            <a href="https://laravel.ru/posts/409">Laravel.ru</a>
+            <a href="/articles">Все Статьи</a>
             <a href="http://laravel.su/docs/5.4/middleware">Laravel.su-midleware</a>
             <a href="https://ru.gravatar.com/site/implement/images/php/">gravatars rule for php</a>
 

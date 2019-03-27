@@ -1,5 +1,6 @@
 <?php
 
+use \Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -20,9 +21,8 @@ class CreateArticlesTable extends Migration
             $table->string('username')->default('admin');
             $table->string('gravatar')->default('none');
             $table->timestamps();
-            $table->timestamp('published_at')->default(now());
-
-
+            $table->timestamp('published_at')->useCurrent();
+            //$table->timestamp('published_at')->default(now());
         });
     }
 
@@ -39,3 +39,5 @@ class CreateArticlesTable extends Migration
 //Schema::table('articles', function (Blueprint $table) {
 ////            This shits don`t working with sqlite
 //    $table->dropColumn('username');
+
+
