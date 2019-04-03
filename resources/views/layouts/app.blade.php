@@ -7,9 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @yield('title_of_page')
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -43,11 +43,11 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Loginnn') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Авторизация') }}</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registerrr') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                             </li>
                         @endif
                     @else
@@ -61,7 +61,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Выход') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -79,13 +79,6 @@
     <main class="py-4">
         @yield('content')
     </main>
-    {{--<script>--}}
-    {{--(function test(){--}}
-    {{--setInterval(function () {--}}
-    {{--window.location.pathname = '/articles';--}}
-    {{--}, 1000);--}}
-    {{--})()--}}
-    {{--</script>--}}
 </div>
 </body>
 </html>

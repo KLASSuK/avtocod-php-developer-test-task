@@ -5,39 +5,99 @@ namespace App\Http\Controllers;
 use App\Article;
 use Carbon\Carbon;
 use Illuminate\Support;
-use \Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateArticleRequest;
 
 //use App\Http\Controllers\Controller;
 //use App\Http\Middleware\Authenticate;
 
 class ArticlesController extends Controller
 {
+
+    /**
+     * Main page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        // return $articles;
         // have a variant with $data =Workers::all()->sortBy('name');
-        $articles = Article::orderBy('published_at', 'DESC')->get();
-        //return view('articles.index', compact('articles'));
+        $articles = Article::orderBy('created_at', 'DESC')->get();
+//        $articles = Article::latest('created_at')->get();
         return view('articles.index')->with('articles', $articles);
     }
 
+    /**
+     * Show custom article
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
         $article = Article::findOrFail($id);
+        dd($article);
+
         return view('articles.show', ['article' => $article]);
     }
 
+    /**
+     * Create article
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('articles.create');
     }
 
-    public function store()
-    { //$input = Request::all();
-        $input = request()->all();
-        $input['username'] = Auth::user()->name;
+    /**
+     * Save a new article.
+     *
+     * @param CreateArticleRequest $request
+     * @return Response
+     */
+    public function store(CreateArticleRequest $request)
+    {
+        //$input = Request::all();
+
+        //validation
+
+        $input = $request->all();
+        $input['id_owner'] = Auth::user()->id;
         Article::create($input);
+        return redirect('articles');
+    }
+
+    /**
+     * Edit old article.
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $articles = Article::findOrFail($id);
+        return view('articles.edit', [
+            'articles' => $articles,
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * Update old article.
+     *
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update($id, Request $request)
+    {
+        $articles = Article::findOrFail($id);
+        $articles->update($request->all());
+//        dd($request);
         return redirect('articles');
     }
 }

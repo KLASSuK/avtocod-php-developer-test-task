@@ -68,27 +68,24 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-                <a href="{{ url('/articles') }}">Homeee</a>
+                <a href="{{ url('/articles') }}">Домашнаяя страница</a>
             @else
-                <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('login') }}">Авторизация</a>
 
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
+                    <a href="{{ route('register') }}">Регистрация Главная</a>
                 @endif
             @endauth
         </div>
     @endif
-
     <div class="content">
         <div class="title m-b-md">
             MainPage
         </div>
-
         <div class="links">
             <a href="/articles">Все Статьи</a>
             <a href="http://laravel.su/docs/5.4/middleware">Laravel.su-midleware</a>
             <a href="https://ru.gravatar.com/site/implement/images/php/">gravatars rule for php</a>
-
         </div>
     </div>
 </div>

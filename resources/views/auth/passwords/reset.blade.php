@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title_of_page')
+    <title> Сброс пароля </title>
+@stop
 
 @section('content')
 <div class="container">

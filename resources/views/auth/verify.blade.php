@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title_of_page')
+    <title> Все статьи блога </title>
+@stop
 
 @section('content')
 <div class="container">

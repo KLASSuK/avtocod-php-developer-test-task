@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title_of_page')
+    <title> Авторизация </title>
+@stop
 
 @section('content')
     <div class="container">
@@ -77,4 +80,4 @@
             </div>
         </div>
     </div>
-@endsection
+@stop

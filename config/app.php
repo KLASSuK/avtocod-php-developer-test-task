@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Бложик'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://127.0.0.1:8080'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Moscow',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:npWj9WPklos4nYTIYx8njiI+siqZUje/MWg+W5xFbeQ='),
 
     'cipher' => 'AES-256-CBC',
 

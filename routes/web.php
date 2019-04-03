@@ -13,26 +13,21 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('mainpage');
 });
 
-//Route::middleware(['auth'])->group(function () {
-//Route::get('/home', 'ArticlesController@index')->name('home');
-
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-
-    Route::get('articles', 'ArticlesController@index');
-    Route::post('articles', 'ArticlesController@store');
-
-    Route::get('articles/create', 'ArticlesController@create')->name('article.create');
-    // 'article.create' alias for using in controller and in other places
-    Route::get('articles/{id}', 'ArticlesController@show');
-//Route::get('/welcome', function () {
-//    return view('welcome');
-//});
+    Route::get('articles', 'ArticlesController@index')->name('articles.index');
+    Route::post('articles', 'ArticlesController@store')->name('articles.store');
+    Route::get('articles/create', 'ArticlesController@create')->name('articles.create');
+    Route::get('articles/{id}', 'ArticlesController@show')->name('articles.show');
+    Route::get('articles/{id}/edit', 'ArticlesController@edit')->name('articles.edit');
+//    Route::resource('articles', 'ArticlesController', [
+//        'names' => ['create' => 'articles.create']
+//    ]);
 });
 // good practick use in view same     <a href="{{route('article.create')}}" class="btn btn-danger">Create</a>
+

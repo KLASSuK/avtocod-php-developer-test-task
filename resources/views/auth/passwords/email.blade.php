@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title_of_page')
+    <title> Почта </title>
+@stop
 
 @section('content')
 <div class="container">
