@@ -7,11 +7,10 @@
     <h1>Edit: {!!  $articles->title !!}</h1>
     {{--{{dd($articles)}}--}}
     <hr/>
-    {{--<form method="POST" action="{{ route('articles.edit', ['id' => $id]) }}" accept-charset="UTF-8">--}}
+    <form method="POST" action="{{ route('articles.edit', ['id' => $id]) }}" accept-charset="UTF-8">
 
-    <form method="POST" action="" accept-charset="UTF-8">
-        <input name="_method" type="hidden"
-               value="PATCH">
+        {{--<input name="_method" type="hidden"--}}
+               {{--value="PATCH">--}}
         @csrf
 
         <div class="form-group">
@@ -27,8 +26,7 @@
         <div class="form-group">
             <input class="btn btn-primary form-control" type="submit" value="Change Article">
 
-            {{--<a href="{{ route('articles.update', request()->route('articles') ) }}" class="btn btn-danger"> EDIT article </a>--}}
-            <a href="" class="btn btn-danger"> EDIT article </a>
+            <a href="{{ route('articles.edit', [request()->route('articles'), 'id'=>$id ]) }}" class="btn btn-danger"> EDIT article </a>
 
         </div>
     </form>

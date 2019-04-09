@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 
 class Article extends Model
@@ -14,14 +15,17 @@ class Article extends Model
         'body',
         'id_owner',
         'gravatar',
-        'published_at',
+//         'published_at',
 //        'created_at',
 //        'updated_at',
     ];
-public function setPublishedAtAttribute($data) //Mutator
-{
-    $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $data);
-    //$this->attributes['published_at'] = Carbon::parse($data);
 
-}
+    protected function setPublishedAtAttribute($data) //Mutator
+    {
+        Log::debug('data', [$data]);
+
+        $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $data);
+        //$this->attributes['published_at'] = Carbon::parse($data);
+
+    }
 }

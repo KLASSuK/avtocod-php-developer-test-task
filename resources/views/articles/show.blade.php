@@ -16,7 +16,7 @@
             @if($article->id_owner == Auth::user()->id )
 {{--DONT WORKING NOW--}}
                 {{--<a href="{{ route('articles.edit', ['id'=>$id] }}" class="btn btn-danger"> EDIT article </a>--}}
-                <a href="{{route('article.edit'), ['id'=>'id_owner']}}" class="btn btn-danger"> EDIT article </a>
+                {{--<a href="{{route('article.edit'), ['id'=>'id_owner']}}" class="btn btn-danger"> EDIT article </a>--}}
 
             @endif
             {{--logged user stuff here--}}
