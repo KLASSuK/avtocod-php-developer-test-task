@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('body')->nullable();
-            $table->string('id_owner');
+            $table->integer('id_owner');
             $table->string('gravatar')->default('none');
             $table->timestamps();
             $table->timestamp('published_at')->useCurrent();
@@ -36,6 +36,3 @@ class CreateArticlesTable extends Migration
         Schema::dropIfExists('articles');
     }
 }
-//Schema::table('articles', function (Blueprint $table) {
-////            This shits don`t working with sqlite
-//    $table->dropColumn('username');

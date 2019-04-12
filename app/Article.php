@@ -15,7 +15,7 @@ class Article extends Model
         'body',
         'id_owner',
         'gravatar',
-//         'published_at',
+        'published_at',
 //        'created_at',
 //        'updated_at',
     ];
@@ -24,8 +24,13 @@ class Article extends Model
     {
         Log::debug('data', [$data]);
 
-        $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $data);
+        $this->attributes['published_at'] = Carbon::parse($data)->format('Y-m-d H:i:s');
         //$this->attributes['published_at'] = Carbon::parse($data);
 
     }
+
+
+    protected $casts = [
+        'id_owner' => 'integer',
+    ];
 }

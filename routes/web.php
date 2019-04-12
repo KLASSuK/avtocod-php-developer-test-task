@@ -21,22 +21,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('articles', 'ArticlesController@index')
         ->name('articles.index');
 
-    Route::post('articles/edit', 'ArticlesController@store')
-        ->name('articles.store');
-
     Route::get('articles/create', 'ArticlesController@create')
         ->name('articles.create');
+
+    Route::post('articles/create', 'ArticlesController@store')
+        ->name('articles.store');
 
     Route::get('articles/{id}', 'ArticlesController@show')
         ->name('articles.show');
 
-    Route::get('articles/{id}/edit', 'ArticlesController@edit')
-        ->where('id', '\\d+') //возможно синтаксиси неверен проверить. смысл в том что урл будет id+цифры
-        ->name('articles.edit');
+    Route::middleware(['check.owner'])->group(function () {
 
-    Route::post('articles/{id}/edit', 'ArticlesController@update')
-        ->where('id', '\\d+') //?????
-        ->name('articles.edit');
+        Route::get('articles/{id}/edit', 'ArticlesController@edit')
+            ->where('id', '\\d+')//возможно синтаксиси неверен проверить. смысл в том что урл будет id+цифры
+            ->name('articles.edit');
+
+        Route::post('articles/{id}/edit', 'ArticlesController@update')
+            ->where('id', '\\d+')//?????
+            ->name('articles.update');
+
+        Route::delete('articles/{id}/delete', 'ArticlesController@delete')
+            ->name('articles.delete');
+    }
+    );
 
 //    Route::resource('articles', 'ArticlesController', [
 //        'names' => ['create' => 'articles.create']

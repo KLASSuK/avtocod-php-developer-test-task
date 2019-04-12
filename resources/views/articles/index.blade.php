@@ -11,9 +11,10 @@
     @foreach ($articles as $article)
         <article>
             <h2>
-                {{--<a href="/articles/{{$article->id}}"> {{ $article->text }}</a>--}}
-                <a href="{{ action('ArticlesController@show', [$article->id]) }}"> {{ $article->id }}</a>
-                {{--<a href="{{ url('/articles', $articles->id) }}">{{ $article->text }}</a> этот сучий способ не зашел говорит нет свойства $key в этой коллекции--}}
+                <div>
+                    <a href="{{ action('ArticlesController@show', [$article->id]) }}"> Show article
+                        №{{ $article->id }}</a>
+                </div>
             </h2>
             <div>Tittle: {{ $article->title }}</div>
 
@@ -23,16 +24,16 @@
 
                 <div>Date: {{ $article->created_at->diffForHumans() }}</div>
                 <div>
-                    {{--<a href="{{ $article->gravatar }}">Граватар пользюка</a>--}}
-                    @auth
-                        {{--<a href="Х" class="btn btn-info">ZAGLUSHKA</a>--}}
-                        @if($article->id_owner == Auth::user()->id )
-                            <a href="{{ route('articles.edit',$article) }}" class="btn btn-danger"> EDIT article </a>
-                        @endif
-                        {{--logged user stuff here--}}
-                    @else
-                        {{--guest stuff here--}}
-                    @endauth
+                    @if($article->id_owner == Auth::user()->id )
+                        <a href="{{ route('articles.edit',$article) }}" class="btn btn-info"> EDIT article </a>
+
+                        <form method="POST" action="{{ route('articles.delete',$article) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button type="submit" class="btn btn-danger">Delete article</button>
+                        </form>
+
+                    @endif
                 </div>
                 <hr/>
             </div>

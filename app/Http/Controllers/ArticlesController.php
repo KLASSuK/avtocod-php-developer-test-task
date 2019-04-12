@@ -63,8 +63,10 @@ class ArticlesController extends Controller
 
         //validation
 
+//dd($request);
         $input = $request->all();
         $input['id_owner'] = Auth::user()->id;
+        // dd($input);
         Article::create($input);
         return redirect('articles');
     }
@@ -95,7 +97,19 @@ class ArticlesController extends Controller
     {
         $articles = Article::findOrFail($id);
         $articles->update($request->all());
-//        dd($request);
         return redirect('articles');
+    }
+
+    /**
+     * Delete article
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id)
+    {
+        $articles = Article::findOrFail($id);
+        $articles->delete();
+//        return redirect()->back()->withErrors('Successfully deleted!');
+        return redirect('/articles');
     }
 }
