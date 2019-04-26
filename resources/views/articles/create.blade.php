@@ -5,9 +5,9 @@
 
 @section('content')
     <h1>Write a New Article</h1>
-        <form method="POST" action="{{ route('articles.create') }}" accept-charset="UTF-8">
+    <form method="POST" action="{{ route('articles.create') }}" accept-charset="UTF-8">
     @csrf
-        <!--Title Form Input -->
+    <!--Title Form Input -->
         <div class="form-group">
             <label for="title">Заголовок (Title):</label>
             <input class="form-control" name="title" type="text" id="title">

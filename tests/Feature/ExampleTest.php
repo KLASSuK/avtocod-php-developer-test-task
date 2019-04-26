@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+
 class ExampleTest extends TestCase
 {
     /**
@@ -18,20 +19,21 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
     public function testBasicTest1()
     {
         $response = $this->get('/register');
-
+//        $this->get(route('articles.index'));
+//        view('articles.index');
         $response->assertStatus(200);
     }
 
-    public function testBasicTest2()
-    {
-        $response = $this->get('/register');
-
-        $response->assertViewIs($value);
-    }
-
+//    public function testBasicTest2()
+//    {
+//        $response = $this->get('/register2');
+//
+//        $response->assertViewIs($value);
+//    }
 
 
 //public function testBasicTest1()
