@@ -26,7 +26,7 @@ class ArticlesControllerTest extends TestCase
     public function testIndex1()
     {
         $user = User::findOrFail(1);
-
+//
         $response = $this
             ->actingAs($user)//
             ->get('/articles');//
