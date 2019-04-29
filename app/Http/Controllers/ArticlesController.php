@@ -59,16 +59,13 @@ class ArticlesController extends Controller
      */
     public function store(CreateArticleRequest $request)
     {
-        //$input = Request::all();
-
-        //validation
-
-//dd($request);
         $input = $request->all();
         $input['id_owner'] = Auth::user()->id;
-        // dd($input);
+
         Article::create($input);
-        return redirect('articles');
+
+        return redirect('articles')
+            ->with('success', 'Article successfully created!');
     }
 
     /**

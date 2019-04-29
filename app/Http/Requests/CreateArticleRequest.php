@@ -24,8 +24,8 @@ class CreateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:3',
-            'body' => 'required',
+            'title' => 'required|string|min:3',
+            'body' => 'required|string',
 //            'published_at' => 'required|date',
         ];
     }
