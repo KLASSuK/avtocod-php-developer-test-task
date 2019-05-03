@@ -3,7 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Article;
-use App\Models\User;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +37,7 @@ class ArticlesControllerTest extends TestCase
             ->get('/articles');
         $response->assertViewIs('articles.index');
         $response->assertSee($this->user->name);
-        $response->assertSee('№33');
+        $response->assertSee('№1');
     }
 
     public function testShow()

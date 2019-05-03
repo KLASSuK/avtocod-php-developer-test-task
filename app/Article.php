@@ -6,7 +6,16 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
-
+/**
+ * @property int id
+ * @property string title
+ * @property string body
+ * @property int id_owner
+ * @property string gravatar
+ * @property Carbon created_at
+ * @property Carbon updated_at
+ * @property Carbon published_at
+ */
 class Article extends Model
 {
 

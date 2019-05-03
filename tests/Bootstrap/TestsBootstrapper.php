@@ -3,14 +3,36 @@
 namespace Tests\Bootstrap;
 
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Console\Kernel;
-use AvtoDev\DevTools\Tests\PHPUnit\Traits\CreatesApplicationTrait;
-use AvtoDev\DevTools\Tests\Bootstrap\AbstractLaravelTestsBootstrapper;
+use Tests\CreatesApplication;
 
-class TestsBootstrapper extends AbstractLaravelTestsBootstrapper
+class TestsBootstrapper
 {
-    use CreatesApplicationTrait;
+
+    use CreatesApplication;
+
+    /**
+     * @var \Illuminate\Foundation\Application
+     */
+    protected $app;
+
+    /**
+     * @var Filesystem
+     */
+    protected $files;
+
+    /**
+     * TestsBootstrapper constructor.
+     */
+    public function __construct()
+    {
+        $this->app = $this->createApplication();
+        $this->files = new Filesystem;
+
+        $this->bootNeedMigrateIfNeeded();
+    }
 
     /**
      * Проверяет необходимость выполнения миграций и выполняет их, если это требуется.
@@ -26,7 +48,6 @@ class TestsBootstrapper extends AbstractLaravelTestsBootstrapper
         foreach ((array) $argv as $argument) {
             foreach ($skip_arguments as $skip) {
                 if (Str::contains(Str::lower(trim($argument)), Str::lower($skip))) {
-                    $this->log(sprintf('Skip database refreshing (argument "%s" found)', $argument));
 
                     return true;
                 }
@@ -56,10 +77,8 @@ class TestsBootstrapper extends AbstractLaravelTestsBootstrapper
             }
         }
 
-        $this->log('Refresh migrations..');
         $kernel->call('migrate:refresh');
 
-        $this->log('Apply seeds..');
         $kernel->call('db:seed');
     }
 }
