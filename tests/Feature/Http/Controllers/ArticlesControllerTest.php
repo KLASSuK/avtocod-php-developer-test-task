@@ -7,14 +7,15 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\This;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticlesControllerTest extends TestCase
 {
-    use DatabaseTransactions;
-
+    //    use DatabaseTransactions;
     /**
      * @var User
      */
@@ -27,7 +28,7 @@ class ArticlesControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::findOrFail(1);
+        $this->user = User::inRandomOrder()->first();
     }
 
     public function testIndex()
@@ -47,14 +48,12 @@ class ArticlesControllerTest extends TestCase
             $response = $this
                 ->actingAs($this->user)
                 ->get(route('articles.show', ['id' => $article->id]));
-
+            //dd($response);
             $response->assertViewIs('articles.show');
             $response->assertSee('Заголовок Статьи');
             $response->assertSee($article->title);
             $response->assertSee($article->body);
         }
-
-
     }
 
     public function testCreate()
@@ -68,27 +67,28 @@ class ArticlesControllerTest extends TestCase
 
     public function testArticlesStore()
     {
+        Session::start();
         $this
             ->actingAs($this->user)
             ->post(route('articles.store'), [
-                'title' => $title = Str::random(),
-                'body' => $body = Str::random(),
+                'title'  => $title = Str::random(),
+                'body'   => $body = Str::random(),
+                '_token' => Session::token(),
             ])
             ->assertRedirect(route('articles.index'))
             ->assertSessionHas('success');
-
         /** @var Collection|Article[] $articles */
         $articles = Article::where([
             'id_owner' => $this->user->id,
-            'title' => $title,
-            'body' => $body,
+            'title'    => $title,
+            'body'     => $body,
         ])->get();
 
         $this->assertCount(1, $articles);
         $this->assertDatabaseHas('articles', [
             'id_owner' => $this->user->id,
-            'title' => $title,
-            'body' => $body,
+            'title'    => $title,
+            'body'     => $body,
         ]);
 
         // Clean up
@@ -97,56 +97,63 @@ class ArticlesControllerTest extends TestCase
         }
     }
 
-//    public function testStore()
-//    {
-//        $user     = User::findOrFail(1);
-//        $response = $this
-//            ->actingAs($user)//
-//            ->get('/articles/create');//
-//            $response->assertViewIs('articles/create');
-//        $response =$this
-//            ->actingAs($user)//
-//            ->post('articles/')
-//
-//        Article::create($input);
-//
-////        Article::findorfail(1);
-//$response->assertSee('Заголовок Статьи');
-//    }
-//
-//    public function testEdit()
-//    {
-//        $user     = User::findOrFail(1);
-//        $response = $this
-//            ->actingAs($user)//
-//            ->get('/articles/1/edit');//
-//        //        $request Do IT
-//
-//        $response->assertViewIs('articles.edit');
-//    }
-//
-//    public function testUpdate()
-//    {
-//        $user     = User::findOrFail(1);
-//        $response = $this
-//            ->actingAs($user)//
-//            ->post('/articles/1/edit');//
-//        //        $request Do IT
-//
-//        $response->assertViewIs('articles.edit');
-//        $response->assertRedirect('/articles');
-//    }
-//
-//    public function testDelete()
-//    {
-//        $user     = User::findOrFail(1);
-//        $response = $this
-//            ->actingAs($user)//
-//            ->post('/articles/1/delete');//
-//        //        $request Do IT
-//
-//        $response->assertRedirect('/articles');
-//    }
+    public function testEdit()
+    {
+
+        Session::start();
+        $this
+            ->actingAs($this->user)
+            ->post(route('articles.store'), [
+                'title'  => $title = Str::random(),
+                'body'   => $body = Str::random(),
+                '_token' => Session::token(),
+            ])
+            ->assertRedirect(route('articles.index'))
+            ->assertSessionHas('success');
+        /** @var Collection|Article[] $article */
+        $article = Article::where([
+            'id_owner' => $this->user->id,
+            'title'    => $title,
+            'body'     => $body,
+        ])->first();
+        $this->assertDatabaseHas('articles', [
+            'id_owner' => $this->user->id,
+            'title'    => $title,
+            'body'     => $body,
+        ]);
+        //dd($article->id);
+        $response = $this
+            ->get(route('articles.edit', [$article->id]));
+        $response->assertViewIs('articles.edit');
+        foreach ([$title, $body] as $value) {
+            $response->assertSeeText($value);
+        }
+        // Clean up
+        $article->delete();
+    }
+
+    //    public function testUpdate()
+    //    {
+    //        $user     = User::findOrFail(1);
+    //        $response = $this
+    //            ->actingAs($user)//
+    //            ->post('/articles/1/edit');//
+    //        //        $request Do IT
+    //
+    //        $response->assertViewIs('articles.edit');
+    //        $response->assertRedirect('/articles');
+    //    }
+    //
+    //    public function testDelete()
+    //    {
+    //        $user     = User::findOrFail(1);
+    //        $response = $this
+    //            ->actingAs($user)//
+    //            ->post('/articles/1/delete');//
+    //        //        $request Do IT
+    //
+    //        $response->assertRedirect('/articles');
+    //    }
 }
 //$response = $this->get('/register');
 //$this->get(route('articles.index'));

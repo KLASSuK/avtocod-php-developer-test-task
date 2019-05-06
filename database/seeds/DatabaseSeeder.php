@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, \random_int(1, 10))->create();
-        factory(Article::class, \random_int(1, 10))->create();
+        factory(User::class, \random_int(1, 5))->create();
+        factory(Article::class, \random_int(5, 10))->create();
     }
 }
