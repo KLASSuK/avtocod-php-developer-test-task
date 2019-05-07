@@ -45,9 +45,8 @@ Route::middleware(['auth'])->group(function () {
     }
     );
 
-//    Route::resource('articles', 'ArticlesController', [
-//        'names' => ['create' => 'articles.create']
-//    ]);
+    //    Route::resource('articles', 'ArticlesController', [
+    //        'names' => ['create' => 'articles.create']
+    //    ]);
 });
 // good practick use in view same     <a href="{{route('article.create')}}" class="btn btn-danger">Create</a>
-

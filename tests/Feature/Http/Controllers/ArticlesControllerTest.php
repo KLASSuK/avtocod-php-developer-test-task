@@ -6,16 +6,14 @@ use App\Article;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\This;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticlesControllerTest extends TestCase
 {
-    //    use DatabaseTransactions;
+    use DatabaseTransactions;
+
     /**
      * @var User
      */
@@ -41,14 +39,13 @@ class ArticlesControllerTest extends TestCase
         $response->assertSee('№1');
     }
 
-    public function testShow()
+    public function testShowMethod(): void
     {
-        foreach (Article::all() as $article) {
+        foreach (Article::inRandomOrder()->limit(2)->get() as $article) {
             /** @var Article $article */
             $response = $this
                 ->actingAs($this->user)
                 ->get(route('articles.show', ['id' => $article->id]));
-            //dd($response);
             $response->assertViewIs('articles.show');
             $response->assertSee('Заголовок Статьи');
             $response->assertSee($article->title);
@@ -131,7 +128,6 @@ class ArticlesControllerTest extends TestCase
         // Clean up
         $article->delete();
     }
-
     //    public function testUpdate()
     //    {
     //        $user     = User::findOrFail(1);
@@ -139,21 +135,46 @@ class ArticlesControllerTest extends TestCase
     //            ->actingAs($user)//
     //            ->post('/articles/1/edit');//
     //        //        $request Do IT
-    //
     //        $response->assertViewIs('articles.edit');
     //        $response->assertRedirect('/articles');
     //    }
-    //
-    //    public function testDelete()
-    //    {
-    //        $user     = User::findOrFail(1);
-    //        $response = $this
-    //            ->actingAs($user)//
-    //            ->post('/articles/1/delete');//
-    //        //        $request Do IT
-    //
-    //        $response->assertRedirect('/articles');
-    //    }
+    /**
+     *
+     */
+    public function testDelete()
+    {
+        Session::start();
+        $this
+            ->actingAs($this->user)
+            ->post(route('articles.store'),
+                [
+                    'title'  => $title = Str::random(),
+                    'body'   => $body = Str::random(),
+                    '_token' => Session::token(),
+                ])
+            ->assertRedirect('/articles')
+            ->assertSessionHas('success');
+        /** @var Collection|Article[] $article */
+        $article = Article::where([
+            'id_owner' => $this->user->id,
+            'title'    => $title,
+            'body'     => $body,
+        ])->first();
+        $this->assertDatabaseHas('articles', [
+            'id_owner' => $this->user->id,
+            'title'    => $title,
+            'body'     => $body,
+        ]);
+
+        $response = $this
+            ->delete(route('articles.delete', [$article->id,
+                '_token' => Session::token(),
+            ]));
+
+        $response->assertRedirect('/articles');
+        // Clean up
+        $article->delete();
+    }
 }
 //$response = $this->get('/register');
 //$this->get(route('articles.index'));
