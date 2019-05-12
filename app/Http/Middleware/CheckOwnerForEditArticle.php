@@ -12,7 +12,8 @@ class CheckOwnerForEditArticle
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -21,6 +22,7 @@ class CheckOwnerForEditArticle
         if (Article::find($id)->id_owner !== Auth::user()->id) {
             return redirect('/articles/');
         }
+
         return $next($request);
     }
 }

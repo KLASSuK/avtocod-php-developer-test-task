@@ -2,7 +2,9 @@
 @section('title_of_page')
     <title> Редактирование выбранной статьи </title>
 @stop
-
+@section('h1')
+    <h1>Редактирование сообщения/статьи</h1>
+@endsection
 @section('content')
     <h1>Edit: {!!  $articles->title !!}</h1>
     <hr/>
@@ -21,7 +23,7 @@
         </div>
         <!--Change Article Form Input -->
         <div class="form-group">
-            <input class="btn btn-primary form-control" type="submit" value="Change Article">
+            <input class="btn btn-primary form-control" type="submit" value="Edit Article">
         </div>
     </form>
 

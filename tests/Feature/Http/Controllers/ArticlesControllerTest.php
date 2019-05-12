@@ -29,14 +29,14 @@ class ArticlesControllerTest extends TestCase
         $this->user = User::inRandomOrder()->first();
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         $response = $this
             ->actingAs($this->user)
             ->get('/articles');
         $response->assertViewIs('articles.index');
-        $response->assertSee($this->user->name);
-        $response->assertSee('№1');
+//        $response->assertSee($this->user->name);
+        $response->assertSee('Сообщения от всех пользователей');
     }
 
     public function testShowMethod(): void
@@ -53,7 +53,7 @@ class ArticlesControllerTest extends TestCase
         }
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $response = $this
             ->actingAs($this->user)
@@ -62,7 +62,7 @@ class ArticlesControllerTest extends TestCase
         $response->assertViewIs('articles.create');
     }
 
-    public function testArticlesStore()
+    public function testArticlesStore(): void
     {
         Session::start();
         $this
@@ -94,7 +94,7 @@ class ArticlesControllerTest extends TestCase
         }
     }
 
-    public function testEdit()
+    public function testEdit(): void
     {
 
         Session::start();
@@ -141,7 +141,7 @@ class ArticlesControllerTest extends TestCase
     /**
      *
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         Session::start();
         $this
