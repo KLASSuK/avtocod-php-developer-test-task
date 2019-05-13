@@ -65,12 +65,12 @@
             <li><a class="logout-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                    {{ __('Выход') }} <span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
+                    <span class="glyphicon glyphicon-log-out"></span> {{ __('Выход') }}</a></li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                   style="display: none;">
+                @csrf
             </form>
 
-            @csrf
             @endguest
 
         </ul>

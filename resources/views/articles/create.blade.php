@@ -9,10 +9,18 @@
     <h1>Write a New Article</h1>
     <form method="post" action="{{ route('articles.create') }}" class="form-horizontal" accept-charset="UTF-8">
         @csrf
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Ошибка!</strong> Сообщение не может быть пустым.
-        </div>
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Ошибка!</strong>
+
+                <ul class="alert-alert-danger">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <div class="controls">
             <div class="col-md-12">
@@ -20,14 +28,14 @@
                     <label for="title">Заголовок (Title):</label>
                     <textarea id="title" name="title" class="form-control"
                               placeholder="Ваше заголовок" rows="1"
-                              required="required"></textarea>
+                              required="required">{{ old('title') }}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="body">Текст сообщения:</label>
                     <textarea id="body" name="body" class="form-control"
                               placeholder="Ваше сообщение" rows="4"
-                              required="required"></textarea>
+                              required="required">{{ old('body') }}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -42,11 +50,5 @@
         </div>
     </form>
 
-    @if ($errors->any())
-        <ul class="alert-alert-danger">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+
 @stop
