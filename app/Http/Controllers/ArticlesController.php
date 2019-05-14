@@ -15,6 +15,15 @@ use App\Http\Requests\CreateArticleRequest;
 
 class ArticlesController extends Controller
 {
+    /**
+     * reg_success
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function reg_success()
+    {
+        return view('auth.reg_success');
+    }
 
     /**
      * Main page
@@ -25,7 +34,8 @@ class ArticlesController extends Controller
     {
         // have a variant with $data =Workers::all()->sortBy('name');
         $articles = Article::orderBy('created_at', 'DESC')->get();
-//        $articles = Article::latest('created_at')->get();
+
+        //        $articles = Article::latest('created_at')->get();
         return view('articles.index')->with('articles', $articles);
     }
 
@@ -33,11 +43,13 @@ class ArticlesController extends Controller
      * Show custom article
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
         $article = Article::findOrFail($id);
+
         return view('articles.show', ['article' => $article]);
     }
 
@@ -55,11 +67,12 @@ class ArticlesController extends Controller
      * Save a new article.
      *
      * @param CreateArticleRequest $request
+     *
      * @return Response
      */
     public function store(CreateArticleRequest $request)
     {
-        $input = $request->all();
+        $input             = $request->all();
         $input['id_owner'] = Auth::user()->id;
 
         Article::create($input);
@@ -72,41 +85,48 @@ class ArticlesController extends Controller
      * Edit old article.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
         $articles = Article::findOrFail($id);
+
         return view('articles.edit', [
             'articles' => $articles,
-            'id' => $id,
+            'id'       => $id,
         ]);
     }
 
     /**
      * Update old article.
      *
-     * @param $id
+     * @param         $id
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, Request $request)
     {
         $articles = Article::findOrFail($id);
         $articles->update($request->all());
+
         return redirect('articles');
     }
 
     /**
      * Delete article
+     *
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function delete($id)
     {
         $articles = Article::findOrFail($id);
         $articles->delete();
-//        return redirect()->back()->withErrors('Successfully deleted!');
+
+        //        return redirect()->back()->withErrors('Successfully deleted!');
         return redirect('/articles');
     }
 }

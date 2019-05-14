@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title_of_page')
-    <title> Создание статьи </title>
-@stop
+    <title> Создание сообщения </title>
+@endsection
 @section('h1')
     <h1>Создание сообщения/статьи</h1>
 @endsection
@@ -27,28 +27,24 @@
                 <div class="form-group">
                     <label for="title">Заголовок (Title):</label>
                     <textarea id="title" name="title" class="form-control"
-                              placeholder="Ваше заголовок" rows="1"
+                              placeholder="Ваш заголовок" rows="1"
                               required="required">{{ old('title') }}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="body">Текст сообщения:</label>
-                    <textarea id="body" name="body" class="form-control"
+                    <label for="message_text">Текст сообщения:</label>
+                    <textarea id="message_text" name="message_text" class="form-control"
                               placeholder="Ваше сообщение" rows="4"
                               required="required">{{ old('body') }}</textarea>
                 </div>
-
-                <div class="form-group">
-                    <label for="date">ДАТА публикации статьи (Date):</label>
-                    <input type="datetime-local" name="published_at" id="published_at">
-                </div>
-
+                {{--<div class="form-group">--}}
+                {{--<label for="date">ДАТА публикации статьи (Date):</label>--}}
+                {{--<input type="datetime-local" name="published_at" id="published_at">--}}
+                {{--</div>--}}
             </div>
             <div class="col-md-12 text-center">
-                <input type="submit" class="btn btn-primary form-control" value="Отправить сообщение" />
+                <input type="submit" class="btn btn-success btn-send" value="Отправить сообщение" />
             </div>
         </div>
     </form>
-
-
-@stop
+@endsection

@@ -4,8 +4,6 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @yield('title_of_page')
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -34,9 +32,92 @@
         .wall-message:last-child {
             border-width: 0;
         }
-    </style>
 
-    <title>Стена сообщений | Главная страница</title>
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .form-signup {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .form-signup .form-signup-heading {
+            margin-bottom: 10px;
+        }
+
+        .form-signup .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signup .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signup input#user_login {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signup input#user_password {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        .form-signup input#user_password_repeat {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+    @section('title_of_page')
+        <title>Стена сообщений | Главная страница</title>
+    @show
 </head>
 <body>
 
@@ -47,52 +128,52 @@
         </div>
 
         <!-- Right Side Of Navbar -->
-        <ul class="nav navbar-nav">
-            <!-- Authentication Links -->
-            @guest
-                <li class="active"><a href="{{ route('articles.index') }}">Главная</a></li>
 
-                <li><a href="{{ route('login') }}">Авторизация</a></li>
-                @if (Route::has('register'))
+        @section('active_tab')
+            <ul class="nav navbar-nav">
+                <!-- Authentication Links -->
 
-                    <li><a href="{{ route('register') }}">Регистрация</a></li>
-                @endif
-            @else
+                @guest
+                    <li class="active"><a href="{{ route('articles.index') }}">Главная</a></li>
+                    <li><a href="{{ route('login') }}">Авторизация</a></li>
+                    @if (Route::has('register'))
+                        <li><a href="{{ route('register') }}">Регистрация</a></li>
+                    @endif
+                @else
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</li>
+                {{--<img style="width: 16px;" src="{{ Auth::user()->gravatar }}" alt="" class="img-circle user-avatar" />--}}
+                <li><a class="logout-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+                        <span class="glyphicon glyphicon-log-out"></span> {{ __('Выход') }}</a></li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
 
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-text"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }} </li>
-            <li><a class="logout-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    <span class="glyphicon glyphicon-log-out"></span> {{ __('Выход') }}</a></li>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                  style="display: none;">
-                @csrf
-            </form>
+                @endguest
 
-            @endguest
+            </ul>
+        @show
 
-        </ul>
     </div>
 </nav>
 
 <!-- Begin page content -->
 <div class="container">
     <div class="page-header">
-        @section('h1')<h1>Сообщения от всех пользователей</h1>
+        @section('h1')
+            <h1>Сообщения от всех пользователей</h1>
         @show
     </div>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
+    @section('content')
+    @show
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

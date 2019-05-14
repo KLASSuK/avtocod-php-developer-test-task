@@ -35,7 +35,7 @@ class ArticlesControllerTest extends TestCase
             ->actingAs($this->user)
             ->get('/articles');
         $response->assertViewIs('articles.index');
-//        $response->assertSee($this->user->name);
+        //        $response->assertSee($this->user->name);
         $response->assertSee('Сообщения от всех пользователей');
     }
 
@@ -57,8 +57,9 @@ class ArticlesControllerTest extends TestCase
     {
         $response = $this
             ->actingAs($this->user)
-            ->get('/articles/create');
-
+            ->get(route('articles.create'));
+        //dd(get_class($response));
+//        $response->assertSuccessful();
         $response->assertViewIs('articles.create');
     }
 
@@ -176,7 +177,3 @@ class ArticlesControllerTest extends TestCase
         $article->delete();
     }
 }
-//$response = $this->get('/register');
-//$this->get(route('articles.index'));
-//view('mainpage');
-//$response->assertStatus(200);

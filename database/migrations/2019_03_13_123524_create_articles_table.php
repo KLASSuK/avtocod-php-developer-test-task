@@ -19,7 +19,6 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('body')->nullable();
             $table->integer('id_owner');
-            $table->string('gravatar')->default('none');
             $table->timestamps();
             $table->timestamp('published_at')->useCurrent();
             //$table->timestamp('published_at')->default(now());

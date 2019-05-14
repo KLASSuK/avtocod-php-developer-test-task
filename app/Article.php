@@ -32,11 +32,9 @@ class Article extends Model
 
     protected function setPublishedAtAttribute($data) //Mutator
     {
-        Log::debug('data', [$data]);
+        //        Log::debug('data', [$data]);
 
         $this->attributes['published_at'] = Carbon::parse($data)->format('Y-m-d H:i:s');
-        //$this->attributes['published_at'] = Carbon::parse($data);
-
     }
 
     protected $casts = [

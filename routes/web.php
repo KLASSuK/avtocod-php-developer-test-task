@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,22 +14,18 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'HomeController@index');
+//Route::get('/', 'HomeController@index');
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
 
-    Route::get('articles', 'ArticlesController@index')
-        ->name('articles.index');
+
+Route::middleware(['auth'])->group(function () {
 
     Route::get('articles/create', 'ArticlesController@create')
         ->name('articles.create');
 
     Route::post('articles/create', 'ArticlesController@store')
         ->name('articles.store');
-
-    Route::get('articles/{id}', 'ArticlesController@show')
-        ->name('articles.show');
 
     Route::middleware(['check.owner'])->group(function () {
 
@@ -45,5 +42,11 @@ Route::middleware(['auth'])->group(function () {
     }
     );
 });
+Route::get('articles', 'ArticlesController@index')
+    ->name('articles.index');
+
+Route::get('articles/{id}', 'ArticlesController@show')
+    ->name('articles.show');
 // good practick use in view same     <a href="{{route('article.create')}}" class="btn btn-danger">Create</a>
 
+Route::get('/register/reg_success', 'ArticlesController@reg_success')->name('reg_success');
