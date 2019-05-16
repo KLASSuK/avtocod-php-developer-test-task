@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Log;
  * @property string title
  * @property string body
  * @property int    id_owner
- * @property string gravatar
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Carbon published_at
@@ -24,12 +23,14 @@ class Article extends Model
         'title',
         'body',
         'id_owner',
-        'gravatar',
         'published_at',
         //        'created_at',
         //        'updated_at',
     ];
 
+    /**
+     * @param $data
+     */
     protected function setPublishedAtAttribute($data) //Mutator
     {
         //        Log::debug('data', [$data]);

@@ -2,9 +2,10 @@
 @section('title_of_page')
     <title>Стена сообщений | Регистрация</title>
 @endsection
+
 @section('h1')
-    <h1></h1>
 @endsection
+
 @section('active_tab')
     <ul class="nav navbar-nav">
         <!-- Authentication Links -->
@@ -18,7 +19,6 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li class="navbar-text"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</li>
-        {{--<img style="width: 16px;" src="{{ Auth::user()->gravatar }}" alt="" class="img-circle user-avatar" />--}}
         <li><a class="logout-item" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
                 <span class="glyphicon glyphicon-log-out"></span> {{ __('Выход') }}</a></li>
@@ -44,7 +44,7 @@
 
             <label for="email" class="sr-only">Логин</label>
             <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                   name="email" value="{{ old('email') }}" placeholder="Логин" required>
+                   name="email" value="{{ old('email') }}" placeholder="Логин = E-mail" required>
             @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('email') }}</strong></span>
             @endif

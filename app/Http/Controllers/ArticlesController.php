@@ -16,7 +16,7 @@ use App\Http\Requests\CreateArticleRequest;
 class ArticlesController extends Controller
 {
     /**
-     * reg_success
+     * reg_success_page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

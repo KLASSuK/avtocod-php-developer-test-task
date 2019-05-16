@@ -16,12 +16,10 @@
             <label for="title">Заголовок (Title):</label>
             <input class="form-control" name="title" type="text" id="title" value="{!! $articles->title !!}">
         </div>
-        <!--Body Form Input -->
         <div class="form-group">
             <label for="body">Тело статьи (Body):</label>
             <textarea class="form-control" name="body" cols="50" rows="10" id="body">{!! $articles->body !!}</textarea>
         </div>
-        <!--Change Article Form Input -->
         <div class="form-group">
             <input class="btn btn-primary form-control" type="submit" value="Edit Article">
         </div>

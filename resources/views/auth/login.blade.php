@@ -8,7 +8,6 @@
 
 @section('active_tab')
     <ul class="nav navbar-nav">
-        <!-- Authentication Links -->
         @guest
             <li><a href="{{ route('articles.index') }}">Главная</a></li>
 

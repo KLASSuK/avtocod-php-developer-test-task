@@ -35,7 +35,7 @@
                     <label for="message_text">Текст сообщения:</label>
                     <textarea id="message_text" name="message_text" class="form-control"
                               placeholder="Ваше сообщение" rows="4"
-                              required="required">{{ old('body') }}</textarea>
+                              required="required">{{ old('message_text') }}</textarea>
                 </div>
                 {{--<div class="form-group">--}}
                 {{--<label for="date">ДАТА публикации статьи (Date):</label>--}}
