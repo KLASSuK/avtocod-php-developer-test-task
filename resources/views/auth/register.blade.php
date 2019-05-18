@@ -44,7 +44,7 @@
 
             <label for="email" class="sr-only">Логин</label>
             <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                   name="email" value="{{ old('email') }}" placeholder="Логин = E-mail" required>
+                   name="email" value="{{ old('email') }}" placeholder="E-mail" required>
             @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('email') }}</strong></span>
             @endif

@@ -161,14 +161,15 @@
 
 <!-- Begin page content -->
 <div class="container">
-    <div class="page-header">
         @section('h1')
             <h1>Сообщения от всех пользователей</h1>
         @show
     </div>
 
     @section('content')
-    @show
+        <div class="page-header">
+
+        @show
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

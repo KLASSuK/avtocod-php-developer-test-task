@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Carbon\Carbon;
-use Illuminate\Support;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateArticleRequest;
 
-//use App\Http\Controllers\Controller;
-//use App\Http\Middleware\Authenticate;
-
+/**
+ * Class ArticlesController.
+ *
+ * Контроллер статей.
+ */
 class ArticlesController extends Controller
 {
     /**
@@ -32,10 +32,8 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        // have a variant with $data =Workers::all()->sortBy('name');
         $articles = Article::orderBy('created_at', 'DESC')->get();
 
-        //        $articles = Article::latest('created_at')->get();
         return view('articles.index')->with('articles', $articles);
     }
 
@@ -73,7 +71,7 @@ class ArticlesController extends Controller
     public function store(CreateArticleRequest $request)
     {
         $input             = $request->all();
-        $input['id_owner'] = Auth::user()->id;
+        $input['id_owner'] = Auth::guard()->user()->id;
 
         Article::create($input);
 

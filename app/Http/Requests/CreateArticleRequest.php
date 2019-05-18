@@ -25,8 +25,7 @@ class CreateArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:3',
-            'message_text' => 'required|string|min:3',
-//            'published_at' => 'required|date',
+            'body'  => 'required|string|min:3',
         ];
     }
 }
